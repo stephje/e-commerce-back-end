@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
   let newCategory = await Category.create(req.body).catch((err) => {
     res.json(err);
   })
-  res.json(newTag);
+  res.json(newCategory); 
 });
 
 router.put('/:id', async (req, res) => {
