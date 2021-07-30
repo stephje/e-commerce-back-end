@@ -21,16 +21,32 @@ router.get('/:id', async (req, res) => {
   res.json(singleTagData);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
+  let newCategory = await Category.create(req.body).catch((err) => {
+    res.json(err);
+  })
+  res.json(newTag);
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
+  let updatedData = await Category.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  });
+  res.json(updatedData);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
+  let numberOfDeletedEntries = await Category.destroy({
+    where: {
+      id: req.params.id,
+    }
+  });
+  res.json(numberOfDeletedEntries);
 });
 
 module.exports = router;
